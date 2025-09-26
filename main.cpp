@@ -1,3 +1,10 @@
+/*
+ * main.cpp
+ *
+ *  Created on: 24/09/2025
+ *      Author: Lucía Casas - A01713181
+ */
+
 #include "ventas.h"
 
 int main() {
