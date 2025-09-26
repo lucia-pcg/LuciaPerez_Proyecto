@@ -3,10 +3,10 @@ Este proyecto maneja un registro de ventas con número de nota, fecha y cantidad
 
 ## Avance de proyecto
 ### Guarda las cantidades vendidas
-Cada venta tendrá 3 atributos:
-- Número de nota (ej. 001, 002, etc.)
-- Fecha (ej. 2025-09-23)
-- Cantidad de venta (ej. 350.75)
+Cada venta tendrá 3 atributos:  
+- Número de nota (ej. 001, 002, etc.)  
+- Fecha (ej. 2025-09-23)  
+- Cantidad de venta (ej. 350.75)  
 
 Los datos se encuentran en un archivo en formato CSV y el programa lo leerá y cargará en un arreglo dinámico (vector).
 Se utiliza ifstream para leer línea por línea y separar por comas.
@@ -19,13 +19,13 @@ Se pueden ordenar los datos de menor a mayor según la necesidad:
 Se utilizó std::sort para facilitar este proceso.
 
 ### Busquedas
-Se puede acceder a los datos de tres maneras diferentes:
-**1. Por número de nota → localizar una venta específica.**
-  Recorrer vector y comparar venta.nota == buscada.
-  - Se utiliza la *busqueda binaria* porque es más rápida.
-**2. Por cantidad exacta → ver si se vendió una cantidad determinada.**
-  Recorrer vector y verificar si venta.cantidad == buscada.
-  - Se utiliza la *busqueda secuencial*.
+Se puede acceder a los datos de tres maneras diferentes:  
+**1. Por número de nota → localizar una venta específica.**  
+  Recorrer vector y comparar venta.nota == buscada.  
+  - Se utiliza la *busqueda binaria* porque es más rápida.  
+**2. Por cantidad exacta → ver si se vendió una cantidad determinada.**  
+  Recorrer vector y verificar si venta.cantidad == buscada.  
+  - Se utiliza la *busqueda secuencial*.  
 **3. Por por día de la semana → filtrar, ej. todas las ventas de lunes.**
   Convertir fecha a día con <ctime> (mktime + strftime).
   Mostrar todas las ventas que coincidan (ej. “Monday”).
