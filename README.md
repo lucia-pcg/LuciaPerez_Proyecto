@@ -1,4 +1,5 @@
 # Ventas de una tienda
+**Lucía Pérez Casas Gutiérrez | A01713181**
 Este proyecto maneja un registro de ventas con número de nota, fecha y cantidad, permitiendo ordenar y buscar de diferentes maneras para analizar la información.
 
 ## Avance de proyecto
