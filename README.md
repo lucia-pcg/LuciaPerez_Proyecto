@@ -20,13 +20,14 @@ Se utilizó std::sort para facilitar este proceso.
 
 ### Busquedas
 Se puede acceder a los datos de tres maneras diferentes:  
+
 **1. Por número de nota → localizar una venta específica.**  
-  Recorrer vector y comparar venta.nota == buscada.  
+  Recorrer vector y comparar venta.nota == buscada.
   - Se utiliza la *busqueda binaria* porque es más rápida.  
 **2. Por cantidad exacta → ver si se vendió una cantidad determinada.**  
-  Recorrer vector y verificar si venta.cantidad == buscada.  
+  Recorrer vector y verificar si venta.cantidad == buscada.
   - Se utiliza la *busqueda secuencial*.  
-**3. Por por día de la semana → filtrar, ej. todas las ventas de lunes.**
+**3. Por por día de la semana → filtrar, ej. todas las ventas de lunes.**  
   Convertir fecha a día con <ctime> (mktime + strftime).
   Mostrar todas las ventas que coincidan (ej. “Monday”).
   - Se utiliza la *busqueda secuencial*.
