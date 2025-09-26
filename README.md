@@ -52,11 +52,11 @@ Según la opción seleccionada, se llamará a su función correspondiente.
   Se ingresa el número de opción y luego los datos necesarios para la búsqueda (por ejemplo, número de nota o día de la semana).  
   Los resultados se imprimen en la terminal.  
 **4. Ejemplo de uso**  
-- Si eliges **1 (Ordenar por cantidad)** → se muestran todas las ventas ordenadas de menor a mayor según la cantidad.  
-- Si eliges **3 (Buscar por número de nota)** → el programa pide el número de nota y devuelve la línea de esa venta si existe.  
-- Si eliges **5 (Buscar por día de la semana)** → deberás ingresar un día en inglés (ej. 'Monday') y el programa listará todas las ventas de ese día.  
+  -Si elige **1 (Ordenar por cantidad)** → se muestran todas las ventas ordenadas de menor a mayor según la cantidad.  
+  -Si elige **3 (Buscar por número de nota)** → se pide el número de nota y devuelve la línea de esa venta.  
+  -Si elige **5 (Buscar por día de la semana)** → se tiene que ingresar un día en inglés (ej. 'Monday') y el programa lista todas las ventas de ese día.   
 **5. Salir**  
-Selecciona la opción **6** para terminar el programa.
+  Selecciona la opción **6** para terminar el programa.  
 
 ## Análisis de complejidad
 ### Ordenamiento:
