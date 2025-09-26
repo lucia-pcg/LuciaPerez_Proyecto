@@ -1,3 +1,10 @@
+/*
+ * ventas.h
+ *
+ *  Created on: 24/09/2025
+ *      Author: Lucía Casas - A01713181
+ */
+
 #ifndef VENTAS_H
 #define VENTAS_H
 
