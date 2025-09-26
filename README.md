@@ -22,15 +22,15 @@ Se utilizó std::sort para facilitar este proceso.
 Se puede acceder a los datos de tres maneras diferentes:  
 
 **1. Por número de nota → localizar una venta específica.**  
-  Recorrer vector y comparar venta.nota == buscada.
-  - Se utiliza la *busqueda binaria* porque es más rápida.  
+  Recorrer vector y comparar venta.nota == buscada.  
+  -Se utiliza la *busqueda binaria* porque es más rápida.  
 **2. Por cantidad exacta → ver si se vendió una cantidad determinada.**  
-  Recorrer vector y verificar si venta.cantidad == buscada.
-  - Se utiliza la *busqueda secuencial*.  
+  Recorrer vector y verificar si venta.cantidad == buscada.  
+  -Se utiliza la *busqueda secuencial*.  
 **3. Por por día de la semana → filtrar, ej. todas las ventas de lunes.**  
-  Convertir fecha a día con <ctime> (mktime + strftime).
-  Mostrar todas las ventas que coincidan (ej. “Monday”).
-  - Se utiliza la *busqueda secuencial*.
+  Convertir fecha a día con <ctime> (mktime + strftime).  
+  Mostrar todas las ventas que coincidan (ej. “Monday”).  
+  -Se utiliza la *busqueda secuencial*.
 
 ### Menú
 Cuando se corre el programa, aparece un menú para que el usuario indique que desea hacer:
@@ -44,14 +44,19 @@ Cuando se corre el programa, aparece un menú para que el usuario indique que de
 Según la opción seleccionada, se llamará a su función correspondiente.
 
 ## Uso del programa
-**1. Preparar el archivo CSV:**
-   Guardar el archivo llamado ventas.csv en la misma carpeta que el programa.
-   Cada línea del archivo contiene: nota,fecha,cantidad.
-**3. Menú**
-  Al ejecutar, el programa muestra un menú con las opciones: ordenar por cantidad, ordenar por fecha, buscar por nota, buscar por cantidad, buscar por día de la semana o       salir.
-  Se ingresa el número de opción y luego los datos necesarios para la búsqueda (por ejemplo, número de nota o día de la semana).
-  Los resultados se imprimen en la terminal.
-**4. 
+**1. Preparar el archivo CSV:**  
+   Guardar el archivo llamado ventas.csv en la misma carpeta que el programa.  
+   Cada línea del archivo contiene: nota,fecha,cantidad.  
+**3. Menú**  
+  Al ejecutar, el programa muestra un menú con las opciones: ordenar por cantidad, ordenar por fecha, buscar por nota, buscar por cantidad, buscar por día de la semana o       salir.  
+  Se ingresa el número de opción y luego los datos necesarios para la búsqueda (por ejemplo, número de nota o día de la semana).  
+  Los resultados se imprimen en la terminal.  
+**4. Ejemplo de uso**  
+- Si eliges **1 (Ordenar por cantidad)** → se muestran todas las ventas ordenadas de menor a mayor según la cantidad.  
+- Si eliges **3 (Buscar por número de nota)** → el programa pide el número de nota y devuelve la línea de esa venta si existe.  
+- Si eliges **5 (Buscar por día de la semana)** → deberás ingresar un día en inglés (ej. 'Monday') y el programa listará todas las ventas de ese día.  
+**5. Salir**  
+Selecciona la opción **6** para terminar el programa.
 
 ## Análisis de complejidad
 ### Ordenamiento:
