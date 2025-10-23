@@ -48,15 +48,10 @@ Después de cargar los datos, el programa permite ordenarlos y hacer búsquedas 
 ## Instrucciones de uso
 
 1. Guarda el archivo `ventas.csv` en la misma carpeta donde tengas los archivos del programa (`main.cpp` y `ventas.h`).
-2. Compila el programa:
-   ```bash
-   g++ main.cpp -o ventas
-   ```
-3. Ejecuta el programa:
-   ```bash
-   ./ventas
-   ```
-4. Usa el menú para elegir la opción que quieras.  
+2. Compila el programa.
+3. Ejecuta el programa.
+4. Usa el menú para elegir la opción que quieras.
+   
    Por ejemplo:
    ```
    ---- MENU ----
