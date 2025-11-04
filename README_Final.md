@@ -69,11 +69,17 @@ Después, se pueden ordenar o buscar dependiendo de lo que el usuario necesite.
 - **Recorrido completo:** O(n).  
 
 #### Ordenamiento (`std::sort` – Introsort)
-- Combina **Quicksort**, **Heapsort** e **Insertionsort**.  
-- **Mejor caso:** O(n log n)  
+- Basado en **Quicksort**, con respaldo de **Heapsort** y optimización final con **Insertionsort**.
+
+| Algoritmo         | Mejor caso | Caso promedio | Peor caso  |
+| ----------------- | ---------- | ------------- | ---------- |
+| **Quicksort**     | O(n log n) | O(n log n)    | O(n²)      |
+| **Heapsort**      | O(n log n) | O(n log n)    | O(n log n) |
+| **Insertionsort** | O(n)       | O(n²)         | O(n²)      |
+
+- **Mejor caso:** O(n log n) (cuando Quicksort divide bien los datos)  
 - **Caso promedio:** O(n log n)  
-- **Peor caso:** O(n log n)  
-- **Uso de memoria adicional:** O(1) (in-place).
+- **Peor caso:** O(n log n) gracias al cambio automático a Heapsort  
 
 #### Búsquedas
 | Tipo | Método | Mejor | Promedio | Peor |
