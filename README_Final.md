@@ -97,7 +97,7 @@ Cada función tiene una complejidad adecuada para su propósito. Las búsquedas 
 
 ### Selecciona una estructura de datos adecuada al problema y la usa correctamente
 
-Elegí std::deque para almacenar los datos de mi proyecto por las siguientes razones:
+Elegí `std::deque` para almacenar los datos de mi proyecto por las siguientes razones:
 
 **1. Inserción y eliminación eficientes en ambos extremos:**
 A diferencia de vector, que solo inserta rápido al final, deque permite agregar o eliminar elementos tanto al inicio como al final en tiempo constante O(1).  
