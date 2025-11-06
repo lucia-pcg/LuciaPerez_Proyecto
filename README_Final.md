@@ -77,9 +77,10 @@ Después, se pueden ordenar o buscar dependiendo de lo que el usuario necesite.
 | **Heapsort**      | O(n log n) | O(n log n)    | O(n log n) |
 | **Insertionsort** | O(n)       | O(n²)         | O(n²)      |
 
+###### Complejidad final:
 - **Mejor caso:** O(n log n) (cuando Quicksort divide bien los datos)  
 - **Caso promedio:** O(n log n)  
-- **Peor caso:** O(n log n) gracias al cambio automático a Heapsort  
+- **Peor caso:** O(n^2) en el caso de que el arreglo sea muy pequeño y no esté ordenado.  
 
 #### Búsquedas
 | Tipo | Método | Mejor | Promedio | Peor |
@@ -96,8 +97,27 @@ Cada función tiene una complejidad adecuada para su propósito. Las búsquedas 
 
 ### Selecciona una estructura de datos adecuada al problema y la usa correctamente
 
-Usé `std::vector` porque permite almacenar una cantidad variable de ventas, recorrerlas fácilmente y acceder a ellas por índice.  
-Es ideal para este tipo de programa porque combina simplicidad y eficiencia, además de funcionar bien con `std::sort` y las búsquedas.
+Elegí std::deque para almacenar los datos de mi proyecto por las siguientes razones:
+
+**1. Inserción y eliminación eficientes en ambos extremos:**
+A diferencia de vector, que solo inserta rápido al final, deque permite agregar o eliminar elementos tanto al inicio como al final en tiempo constante O(1). 
+
+*Esto resulta útil si en el futuro se necesita registrar nuevas ventas al principio o final de la lista sin tener que copiar todos los elementos.*
+
+**2. Acceso aleatorio rápido:**
+Deque permite acceder a cualquier elemento mediante índices (ventas[i]) en tiempo constante.
+
+*Esto es importante porque el programa utiliza búsquedas binarias y recorridos que requieren acceso directo a posiciones específicas, manteniendo la eficiencia O(1) en lectura.*
+
+**3. Mejor aprovechamiento de la memoria en inserciones intermedias:**
+Deque gestiona sus elementos en bloques de memoria independientes conectados internamente, en lugar de usar un único bloque continuo.
+
+*Esto permite agregar o eliminar elementos sin necesidad de copiar grandes cantidades de datos, reduciendo la sobrecarga de memoria y manteniendo estable el rendimiento incluso con muchos registros de ventas.*
+
+**4. Adecuado para un sistema que evoluciona**
+El programa actualmente solo carga, ordena y busca ventas, pero deque ofrece una base más escalable si el sistema crece, sin que el programa se vuelva más lento ni consuma más memoria.
+
+*Por ejemplo, se podría implementar fácilmente una cola de ventas pendientes o de registros antiguos, donde los datos ya procesados o antigüos se eliminen desde el inicio y las ventas nuevas se agreguen al final*
 
 ### Selecciona un algoritmo de ordenamiento adecuado al problema
 
