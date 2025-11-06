@@ -24,7 +24,7 @@ Ejemplo:
 003,2025-09-23,500.00
 ```
 
-Los datos se guardan en un `std::vector<Venta>` que permite almacenar dinámicamente cada registro.  
+Los datos se guardan en un `std::deque<Venta>`, una estructura dinámica que permite almacenar y acceder eficientemente a los registros.
 Después, se pueden ordenar o buscar dependiendo de lo que el usuario necesite.
 
 ### Opciones disponibles en el menú
@@ -63,10 +63,10 @@ Después, se pueden ordenar o buscar dependiendo de lo que el usuario necesite.
 
 ### Análisis de complejidad
 
-#### Estructura de datos: `std::vector`
-- **Inserción al final (carga de datos):** O(1) amortizado.  
+#### Estructura de datos: `std::deque`
+- **Inserción y eliminación en ambos extremos:** O(1).  
 - **Acceso por índice:** O(1).  
-- **Recorrido completo:** O(n).  
+- **Recorrido completo:** O(n).
 
 #### Ordenamiento (`std::sort` – Introsort)
 - Basado en **Quicksort**, con respaldo de **Heapsort** y optimización final con **Insertionsort**.
