@@ -117,8 +117,9 @@ El programa actualmente solo carga, ordena y busca ventas, pero deque ofrece una
 
 ### Selecciona un algoritmo de ordenamiento adecuado al problema
 
-Elegí `std::sort` ya que usa Introsort internamente, garantizando un rendimiento O(n log n) en la mayoría de los casos.  
-También permite definir comparadores personalizados para ordenar por **cantidad**, **fecha** o **nota**, según la necesidad del usuario.
+Elegí `std::sort` ya que usa Introsort internamente, garantizando una complejidad de O(n log n) en el caso promedio y de O(n^2) en el peor de los casos, lo que es poco probable porque la cantidad de datos que se manejan en el programa no es tan pequeña. También permite definir comparadores personalizados para ordenar por **cantidad**, **fecha** o **nota**, según la necesidad del usuario.
+
+En comparación con otros algoritmos de ordenamiento, considero que es la mejor opción porque combina lo mejor de varios lo que provee mejor rendimiento. Por ejemplo, en el caso de `Bubble Sort` e `Insertion Sort`, su complejidad en el mejor caso es O(n), pero en el peor caso y caso promedio es O(n^2). Por otra parte, `Selection Sort` tiene una complejidad de O(n^2) en todos los casos. Si comparamos las complejidades de estos 3 algoritmos con las de introsort, tomando en cuenta el contexto del problema, introsort(std::sort), parece ser una buena opción.
 
 ---
 
