@@ -45,17 +45,19 @@ Al final, el número de nota lo ingresa manualmente el usuario (no se genera aut
 
 1. **Comenzar día**
    Solicita la fecha del día e ingresa al submenú de registro de ventas.
-2. **Ordenar por cantidad**  
+2. **Mostrar las ventas (ordenadas por número de nota)**  
+   Ordena primero todas las ventas por nota con `ordenarPorNota()` y las muestra con `imprimirVenta()`.
+3. **Ordenar por cantidad**  
    Ordena las ventas de menor a mayor según la cantidad.
-3. **Ordenar por fecha**  
+4. **Ordenar por fecha**  
    Ordena las ventas de manera cronológica.
-4. **Buscar por número de nota (búsqueda binaria)**  
+5. **Buscar por número de nota (búsqueda binaria)**  
    Ordena previamente por nota y permite localizar una venta específica.
-5. **Buscar por cantidad (búsqueda secuencial)**  
+6. **Buscar por cantidad (búsqueda secuencial)**  
    Busca las ventas que coincidan con una cantidad exacta.
-6. **Buscar por día de la semana (búsqueda secuencial)**  
+7. **Buscar por día de la semana (búsqueda secuencial)**  
    Convierte la fecha en día de la semana y muestra todas las ventas realizadas ese día.
-7. **Salir**  
+8. **Salir**  
    Finaliza la ejecución del programa.
 
 ### Menú de "Comenzar día"
@@ -63,9 +65,9 @@ Al final, el número de nota lo ingresa manualmente el usuario (no se genera aut
 Requiere al usuario que ingrese la fecha del día y luego muestra las siguientes opciones:
 1. **Registrar venta**
    Muestra un menú de los productos disponibles junto con su precio y el usuario elige los artículos que quiere comprar. 
-3. **Cierre de lote**
-   Todas las ventas registradas se escriben en `ventas.csv`
-
+2. **Cierre de lote**
+   Todas las ventas registradas del día se agregan al historial y se reescribe **completamente** `ventas.csv` con todas las ventas acumuladas.
+   
 Después de cargar las ventas del día regresa al menú principal.
 
 ---
@@ -119,7 +121,9 @@ Después de cargar las ventas del día regresa al menú principal.
 Cada función tiene una complejidad adecuada para su propósito. Las búsquedas secuenciales se usan cuando los datos no necesitan orden previo, y la binaria cuando los datos ya están ordenados.
 
 #### Complejidad final del programa
-Hace un análisis de complejidad correcto y completo para todos los demás componentes del programa y determina la complejidad final del programa.
+El programa realiza lectura/escritura de archivos, ordenamientos y búsquedas.
+La operación más costosa es `std::sort`, por lo que la complejidad final es:
+>***O(n log n)***
 
 ---
 
@@ -142,8 +146,8 @@ Al hacer cierre de lote, el programa:
 A diferencia de vector, que solo inserta rápido al final, deque permite agregar o eliminar elementos tanto al inicio como al final en tiempo constante O(1).  
 > *Esto resulta útil si en el futuro se necesita registrar nuevas ventas al principio o final de la lista sin tener que copiar todos los elementos.*
 
-**3. Mejor aprovechamiento de la memoria en inserciones intermedias:**
-Deque gestiona sus elementos en bloques de memoria independientes conectados internamente, en lugar de usar un único bloque continuo. Esto permite agregar o eliminar elementos sin necesidad de copiar grandes cantidades de datos, reduciendo la sobrecarga de memoria y manteniendo estable el rendimiento incluso con muchos registros de ventas. Con un vector, si se llenara el bloque de memoria, sería necesario realocar y copiar todos los elementos, lo cual es costoso.
+**3. Mejor aprovechamiento de la memoria en inserciones grandes:**
+Deque gestiona sus elementos en bloques de memoria independientes conectados internamente, en vez de un solo bloque continuo como `std::vector`. Esto permite agregar o eliminar elementos sin necesidad de copiar grandes cantidades de datos, reduciendo la sobrecarga de memoria y manteniendo estable el rendimiento incluso con muchos registros de ventas. Con vector, cuando se llena su espacio, debe reservar un bloque nuevo y copiar todos los elementos anteriores, lo cual es costoso para listas grandes.
 > *En cada “cierre de lote” el programa carga todas las ventas del día y las agrega al final. Cuando se agregan muchas ventas juntas, no se copia todo el historial de ventas.*
 
 **4. Adecuado para un sistema que evoluciona**
@@ -168,14 +172,14 @@ Cada función fue diseñada de forma modular para poder acceder a los datos de m
 ### Implementa mecanismos de lectura de archivos
 
 La función `cargarDatos` utiliza `ifstream` para leer el archivo `ventas.csv`, separa los valores por comas con `getline`, y convierte las cantidades a tipo `double` usando `stod`.  
-De esta forma, los datos se cargan correctamente en el vector de ventas antes de realizar los ordenamientos o búsquedas.
+De esta forma, los datos se cargan correctamente en el deque de ventas antes de realizar los ordenamientos o búsquedas.
 
 ### Implementa mecanismos de escritura de archivos para guardar los datos de las estructuras de manera correcta.
-El programa escribe las ventas usando `ofstream` en modo _append_:
+El programa escribe las ventas usando `ofstream`:
 ```
-ofstream file(archivo, std::ios::app);
+ofstream file(archivo);
 ```
-Esto significa quen no borra el archivo existente, agrega las ventas al final y ventas.csv actúa como historial de ventas.
+Esto significa que sobreescribe el archivo completo agregando las ventas del día al final y ventas.csv actúa como historial de ventas. Esto mantiene un historial limpio y ordenado sin duplicar datos.
 
 ---
 
@@ -183,13 +187,14 @@ Esto significa quen no borra el archivo existente, agrega las ventas al final y 
 
 ```
 ---- MENU ----
-1. Comenzar día
-2. Ordenar por cantidad
-3. Ordenar por fecha
-4. Buscar por numero de nota
-5. Buscar por cantidad
-6. Buscar por dia de la semana
-7. Salir
+1. Comenzar dia
+2. Mostrar las ventas (ordenadas por numero de nota)
+3. Ordenar por cantidad
+4. Ordenar por fecha
+5. Buscar por numero de nota
+6. Buscar por cantidad
+7. Buscar por dia de la semana
+8. Salir
 Selecciona una opcion: 1
 
 Ingresa la fecha del día (YYYY-MM-DD): 2025-09-25
@@ -241,30 +246,32 @@ Nota: 005 - Fecha: 2025-09-25 - Cantidad: 1005
 2. Cierre de lote
 Elige una opción: 2
 
-Ventas del día guardadas correctamente.
+Cierre de lote completado. Registro de ventas actualizado.
 
 ---- MENU ----
-1. Comenzar día
-2. Ordenar por cantidad
-3. Ordenar por fecha
-4. Buscar por numero de nota
-5. Buscar por cantidad
-6. Buscar por dia de la semana
-7. Salir
-Selecciona una opcion: 2
+1. Comenzar dia
+2. Mostrar las ventas (ordenadas por numero de nota)
+3. Ordenar por cantidad
+4. Ordenar por fecha
+5. Buscar por numero de nota
+6. Buscar por cantidad
+7. Buscar por dia de la semana
+8. Salir
+Selecciona una opcion: 3
 
 Nota: 005 - Fecha: 2025-09-25 - Cantidad: 1005
 Nota: 004 - Fecha: 2025-09-25 - Cantidad: 1150
 
 ---- MENU ----
-1. Comenzar día
-2. Ordenar por cantidad
-3. Ordenar por fecha
-4. Buscar por numero de nota (binaria)
-5. Buscar por cantidad
-6. Buscar por dia de la semana
-7. Salir
-Selecciona una opcion: 4
+1. Comenzar dia
+2. Mostrar las ventas (ordenadas por numero de nota)
+3. Ordenar por cantidad
+4. Ordenar por fecha
+5. Buscar por numero de nota
+6. Buscar por cantidad
+7. Buscar por dia de la semana
+8. Salir
+Selecciona una opcion: 5
 
 Ingrese el numero de nota: 004
 Nota: 004 - Fecha: 2025-09-25 - Cantidad: 1150
