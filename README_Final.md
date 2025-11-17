@@ -13,6 +13,7 @@ El objetivo es organizar la información de forma eficiente y poder acceder a lo
 
 ### Funcionalidad principal
 
+El usuario tiene la posibilidad de elegir los productos de cada compra y agregarlos al carrito para al final del día cargar las notas de venta acumuladas a la base de datos de la tienda.
 El programa carga la información desde un archivo `ventas.csv`, donde cada línea contiene una venta con los siguientes campos:
 ```
 nota,fecha,cantidad
@@ -24,23 +25,48 @@ Ejemplo:
 003,2025-09-23,500.00
 ```
 
-Los datos se guardan en un `std::deque<Venta>`, una estructura dinámica que permite almacenar y acceder eficientemente a los registros.
-Después, se pueden ordenar o buscar dependiendo de lo que el usuario necesite.
+Los datos de las compras del día se van guardando en un `std::deque<Venta>`, una estructura dinámica que permite almacenar y acceder eficientemente a los registros, para después cargarlos uno por uno al excel y poder consultarlos u ordenarlos según el orden que el usuario necesite.
 
-### Opciones disponibles en el menú
+**Productos disponibles (ropa de bebé):**
+El menú de productos incluye siete artículos de ropa de bebé:
 
-1. **Ordenar por cantidad**  
+1. Body ($150)
+2. Mameluco ($250)
+3. Vestido ($480)
+4. Conjunto ($750)
+5. Calcetines ($60)
+6. Set de almohadas ($300)
+7. Babero ($45)
+
+El usuario puede seleccionar varios artículos y el programa irá sumando sus precios hasta que seleccione la opción "Terminar compra".
+Al final, el número de nota lo ingresa manualmente el usuario (no se genera automáticamente).
+
+### Opciones disponibles en el menú principal
+
+1. **Comenzar día**
+   Solicita la fecha del día e ingresa al submenú de registro de ventas.
+2. **Ordenar por cantidad**  
    Ordena las ventas de menor a mayor según la cantidad.
-2. **Ordenar por fecha**  
+3. **Ordenar por fecha**  
    Ordena las ventas de manera cronológica.
-3. **Buscar por número de nota (búsqueda binaria)**  
+4. **Buscar por número de nota (búsqueda binaria)**  
    Ordena previamente por nota y permite localizar una venta específica.
-4. **Buscar por cantidad (búsqueda secuencial)**  
+5. **Buscar por cantidad (búsqueda secuencial)**  
    Busca las ventas que coincidan con una cantidad exacta.
-5. **Buscar por día de la semana (búsqueda secuencial)**  
+6. **Buscar por día de la semana (búsqueda secuencial)**  
    Convierte la fecha en día de la semana y muestra todas las ventas realizadas ese día.
-6. **Salir**  
+7. **Salir**  
    Finaliza la ejecución del programa.
+
+### Menú de "Comenzar día"
+
+Requiere al usuario que ingrese la fecha del día y luego muestra las siguientes opciones:
+1. **Registrar venta**
+   Muestra un menú de los productos disponibles junto con su precio y el usuario elige los artículos que quiere comprar. 
+3. **Cierre de lote**
+   Todas las ventas registradas se escriben en `ventas.csv`
+
+Después de cargar las ventas del día regresa al menú principal.
 
 ---
 
@@ -55,7 +81,8 @@ Después, se pueden ordenar o buscar dependiendo de lo que el usuario necesite.
    ```bash
    ./ventas
    ```
-4. Selecciona una opción del menú e ingresa los valores solicitados (nota, cantidad o día).
+4. Elige la 'opción 1' del menú principal para registrar nuevas ventas.
+5. Selecciona una opción del menú principal e ingresa los valores solicitados (nota, cantidad o día).
 
 ---
 
@@ -91,6 +118,9 @@ Después, se pueden ordenar o buscar dependiendo de lo que el usuario necesite.
 
 Cada función tiene una complejidad adecuada para su propósito. Las búsquedas secuenciales se usan cuando los datos no necesitan orden previo, y la binaria cuando los datos ya están ordenados.
 
+#### Complejidad final del programa
+Hace un análisis de complejidad correcto y completo para todos los demás componentes del programa y determina la complejidad final del programa.
+
 ---
 
 ## SICT0302: Toma decisiones
@@ -99,20 +129,25 @@ Cada función tiene una complejidad adecuada para su propósito. Las búsquedas 
 
 Elegí `std::deque` para almacenar los datos de mi proyecto por las siguientes razones:
 
-**1. Inserción y eliminación eficientes en ambos extremos:**
+**1. Manejo eficiente de las ventas del día en el cierre de lote:**
+Durante el día, las ventas nuevas se acumulan en un deque temporal.
+Al hacer cierre de lote, el programa:
+- Vacía ese deque de ventas del día
+- Inserta sus elementos al final del deque principal de todas las ventas
+- Escribe el resultado actualizado en el CSV
+
+> *En el programa, `std::deque` es ideal para esto porque permite mover cientos de ventas del día al final del historial sin reacomodar toda la memoria.*
+
+**2. Inserción y eliminación eficientes en ambos extremos:**
 A diferencia de vector, que solo inserta rápido al final, deque permite agregar o eliminar elementos tanto al inicio como al final en tiempo constante O(1).  
 > *Esto resulta útil si en el futuro se necesita registrar nuevas ventas al principio o final de la lista sin tener que copiar todos los elementos.*
 
-**2. Acceso aleatorio rápido:**
-Deque permite acceder a cualquier elemento mediante índices (ventas[i]) en tiempo constante.  
-> *Esto es importante porque el programa utiliza búsquedas binarias y recorridos que requieren acceso directo a posiciones específicas, manteniendo la eficiencia O(1) en       lectura.*
-
 **3. Mejor aprovechamiento de la memoria en inserciones intermedias:**
-Deque gestiona sus elementos en bloques de memoria independientes conectados internamente, en lugar de usar un único bloque continuo.
-> *Esto permite agregar o eliminar elementos sin necesidad de copiar grandes cantidades de datos, reduciendo la sobrecarga de memoria y manteniendo estable el rendimiento incluso con muchos registros de ventas.*
+Deque gestiona sus elementos en bloques de memoria independientes conectados internamente, en lugar de usar un único bloque continuo. Esto permite agregar o eliminar elementos sin necesidad de copiar grandes cantidades de datos, reduciendo la sobrecarga de memoria y manteniendo estable el rendimiento incluso con muchos registros de ventas. Con un vector, si se llenara el bloque de memoria, sería necesario realocar y copiar todos los elementos, lo cual es costoso.
+> *En cada “cierre de lote” el programa carga todas las ventas del día y las agrega al final. Cuando se agregan muchas ventas juntas, no se copia todo el historial de ventas.*
 
 **4. Adecuado para un sistema que evoluciona**
-El programa actualmente solo carga, ordena y busca ventas, pero deque ofrece una base más escalable si el sistema crece, sin que el programa se vuelva más lento ni consuma más memoria.
+El programa actualmente solo carga, ordena, busca y guarda ventas, pero deque ofrece una base más escalable si el sistema crece, sin que el programa se vuelva más lento ni consuma más memoria.
 > *Por ejemplo, se podría implementar fácilmente una cola de ventas pendientes o de registros antiguos, donde los datos ya procesados o antigüos se eliminen desde el inicio y las ventas nuevas se agreguen al final*
 
 ### Selecciona un algoritmo de ordenamiento adecuado al problema
@@ -127,7 +162,7 @@ En comparación con otros algoritmos de ordenamiento, considero que es la mejor 
 
 ### Implementa mecanismos para consultar información de las estructuras
 
-El programa incluye un menú que permite ordenar o buscar ventas según diferentes criterios.  
+El programa incluye un menú que permite registrar, ordenar o buscar ventas según diferentes criterios.  
 Cada función fue diseñada de forma modular para poder acceder a los datos de manera clara y rápida.
 
 ### Implementa mecanismos de lectura de archivos
@@ -135,21 +170,102 @@ Cada función fue diseñada de forma modular para poder acceder a los datos de m
 La función `cargarDatos` utiliza `ifstream` para leer el archivo `ventas.csv`, separa los valores por comas con `getline`, y convierte las cantidades a tipo `double` usando `stod`.  
 De esta forma, los datos se cargan correctamente en el vector de ventas antes de realizar los ordenamientos o búsquedas.
 
+### Implementa mecanismos de escritura de archivos para guardar los datos de las estructuras de manera correcta.
+El programa escribe las ventas usando `ofstream` en modo _append_:
+```
+ofstream file(archivo, std::ios::app);
+```
+Esto significa quen no borra el archivo existente, agrega las ventas al final y ventas.csv actúa como historial de ventas.
+
 ---
 
 ## Ejemplo de ejecución
 
 ```
 ---- MENU ----
-1. Ordenar por cantidad
-2. Ordenar por fecha
-3. Buscar por número de nota
-4. Buscar por cantidad
-5. Buscar por día de la semana
-6. Salir
-Selecciona una opción: 1
+1. Comenzar día
+2. Ordenar por cantidad
+3. Ordenar por fecha
+4. Buscar por numero de nota
+5. Buscar por cantidad
+6. Buscar por dia de la semana
+7. Salir
+Selecciona una opcion: 1
 
-Nota: 002 - Fecha: 2025-09-22 - Cantidad: 150
-Nota: 001 - Fecha: 2025-09-21 - Cantidad: 300.5
-Nota: 003 - Fecha: 2025-09-23 - Cantidad: 500
+Ingresa la fecha del día (YYYY-MM-DD): 2025-09-25
+
+--- MENU DEL DÍA ---
+1. Registrar venta
+2. Cierre de lote
+Elige una opción: 1
+
+--- MENU DE PRODUCTOS ---
+1. Body ($150)
+2. Mameluco ($250)
+3. Vestido ($480)
+4. Conjunto ($750)
+5. Calcetines ($60)
+6. Set de almohadas ($300)
+7. Babero ($45)
+8. Terminar compra
+Elige una opción: 1
+Elige una opción: 2
+Elige una opción: 4
+Ingresa número de nota: 004
+Venta registrada:
+Nota: 004 - Fecha: 2025-09-25 - Cantidad: 1150
+
+--- MENU DEL DÍA ---
+1. Registrar venta
+2. Cierre de lote
+Elige una opción: 1
+
+--- MENU DE PRODUCTOS ---
+1. Body ($150)
+2. Mameluco ($250)
+3. Vestido ($480)
+4. Conjunto ($750)
+5. Calcetines ($60)
+6. Set de almohadas ($300)
+7. Babero ($45)
+8. Terminar compra
+Elige una opción: 3
+Elige una opción: 3
+Elige una opción: 7
+Ingresa número de nota: 005
+Venta registrada:
+Nota: 005 - Fecha: 2025-09-25 - Cantidad: 1005
+
+--- MENU DEL DÍA ---
+1. Registrar venta
+2. Cierre de lote
+Elige una opción: 2
+
+Ventas del día guardadas correctamente.
+
+---- MENU ----
+1. Comenzar día
+2. Ordenar por cantidad
+3. Ordenar por fecha
+4. Buscar por numero de nota
+5. Buscar por cantidad
+6. Buscar por dia de la semana
+7. Salir
+Selecciona una opcion: 2
+
+Nota: 005 - Fecha: 2025-09-25 - Cantidad: 1005
+Nota: 004 - Fecha: 2025-09-25 - Cantidad: 1150
+
+---- MENU ----
+1. Comenzar día
+2. Ordenar por cantidad
+3. Ordenar por fecha
+4. Buscar por numero de nota (binaria)
+5. Buscar por cantidad
+6. Buscar por dia de la semana
+7. Salir
+Selecciona una opcion: 4
+
+Ingrese el numero de nota: 004
+Nota: 004 - Fecha: 2025-09-25 - Cantidad: 1150
 ```
