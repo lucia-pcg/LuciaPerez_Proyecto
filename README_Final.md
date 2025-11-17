@@ -1,7 +1,7 @@
 # Sistema de Gestión de Ventas
 
 **Lucía Pérez Casas Gutiérrez – A01713181**  
-**Fecha:** 23/09/2025  
+**Fecha:** 17/11/2025  
 
 Este proyecto permite almacenar, ordenar y acceder a datos de ventas de una tienda.  
 Cada venta incluye un número de nota, una fecha y una cantidad.  
@@ -121,9 +121,34 @@ Después de cargar las ventas del día regresa al menú principal.
 Cada función tiene una complejidad adecuada para su propósito. Las búsquedas secuenciales se usan cuando los datos no necesitan orden previo, y la binaria cuando los datos ya están ordenados.
 
 #### Complejidad final del programa
-El programa realiza lectura/escritura de archivos, ordenamientos y búsquedas.
+El programa realiza lectura/escritura de archivos (O(n)), ordenamientos y búsquedas. 
+
+**Mejor caso:**  
+~ Impresiones → O(n)  
+
+  >*O(n)*
+
+**Caso promedio:**  
+~ Algunas búsquedas secuenciales → O(n)  
+~ Una o varias ordenaciones → O(n log n)  
+~ Escritura del archivo → O(n)  
+
+  >*O(n log n)*
+
+**Peor caso:**  
+~ Lectura del archivo → O(n)  
+~ Cierre de lote → O(n + m)  
+~ Ordenamientos completos → O(n²)  
+~ Varias búsquedas secuenciales → O(n)  
+~ Escritura del archivo → O(n)  
+  
+  >*O(n²)*
+
+.  
+.  
+
 La operación más costosa es `std::sort`, por lo que la complejidad final es:
->***O(n log n)***
+>***O(n²)***
 
 ---
 
