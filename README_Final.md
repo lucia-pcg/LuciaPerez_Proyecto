@@ -250,7 +250,7 @@ Para consultar información dentro de la estructura de datos utilizada (`std::de
    - Cierre de lote → `ventas.h` línea **104**  
    - Registrar venta del día → `main.cpp` línea **48**
 
-- **Eliminación — `clear()`**
+- **Eliminación `clear()`**
   Vaciar ventas del día después del cierre de lote → `ventas.h` línea **106**
 
 Estos mecanismos permiten obtener información de manera eficiente y soportan las funcionalidades del programa como mostrar ventas, ordenarlas y buscarlas.
