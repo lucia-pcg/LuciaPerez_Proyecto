@@ -232,15 +232,26 @@ Para consultar información dentro de la estructura de datos utilizada (`std::de
 
 - **Acceso por índice (`ventas[i]`)**  
   Utilizado en la búsqueda binaria y en la impresión de resultados. Permite consultar un elemento específico sin recorrer toda la estructura.
+  (Header: Líneas 145 y 147) (Main: Línea 74)
 
 - **Iteradores (`ventas.begin()`, `ventas.end()`)**  
   Utilizados para recorrer todas las ventas al imprimir, ordenar o buscar coincidencias.
+  (Header: Líneas 124, 130 y 136)
 
 - **Método `size()`**  
   Permite consultar cuántos elementos contiene el deque para validar posiciones, rangos y condiciones de búsqueda.
+  (Header: Línea 142)
 
 - **Recorrido secuencial**  
   Se realiza mediante `for` o `for (auto &v : ventas)`, usando la capacidad del deque para devolver elementos en orden lógico.
+
+- **Inserciones (`push_back()`)**
+   - Cargar archivo → `ventas.h` línea **49**  
+   - Cierre de lote → `ventas.h` línea **104**  
+   - Registrar venta del día → `main.cpp` línea **48**
+
+- **Eliminación — `clear()`**
+  Vaciar ventas del día después del cierre de lote → `ventas.h` línea **106**
 
 Estos mecanismos permiten obtener información de manera eficiente y soportan las funcionalidades del programa como mostrar ventas, ordenarlas y buscarlas.
 
