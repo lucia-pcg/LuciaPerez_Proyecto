@@ -93,9 +93,43 @@ Después de cargar las ventas del día regresa al menú principal.
 ### Análisis de complejidad
 
 #### Estructura de datos: `std::deque`
-- **Inserción y eliminación en ambos extremos:** O(1).  
-- **Acceso por índice:** O(1).  
-- **Recorrido completo:** O(n).
+
+##### _Acceso por índice_
+- **Mejor caso:** O(1).  
+  El elemento se encuentra rápidamente porque el cálculo de su ubicación de acuerdo al índice es inmediato.
+- **Caso promedio:** O(1).  
+  `std::deque` divide los datos en varios bloques y puede determinar de manera inmediata en qué bloque está cualquier índice, sin recorrer elementos.
+- **Peor caso:** O(1).  
+  Aunque el elemento esté en un bloque distinto, el acceso sigue siendo constante porque solo se calcula qué bloque contiene la posición solicitada y cuál es la posición exacta dentro de ese bloque.
+  
+*En el programa, este tipo de acceso ocurre en la búsqueda binaria (`ventas[mid]`) en las líneas 145 y 147 del header y cuando se imprime la venta encontrada (`ventas[indice]`) en la línea 74 del main.*
+
+##### _Inserciones (push_back)_
+- **Mejor caso:** O(1).  
+  No hay reacomodo del mapa de bloques.
+- **Caso promedio:** O(1).  
+  Lo normal: agregar a un bloque existente o crear uno nuevo.
+- **Peor caso:** O(n).  
+  El mapa de bloques se queda sin espacio (se duplica el mapa).
+
+##### _Eliminación en extremos (pop_front y pop_back)_
+La eliminación en los extremos de un deque siempre toma tiempo constante porque no requiere mover todos los elementos como en un vector.
+- **Mejor caso:** O(1).
+  Se elimina un elemento en el primer o último bloque sin necesidad de liberar un bloque completo. La operación solo actualiza un puntero.
+- **Caso promedio:** O(1).  
+  Normalmente, eliminar un elemento simplemente reduce el índice interno del bloque correspondiente. No hay desplazamientos ni copias.
+- **Peor caso:** O(1).  
+  Incluso si al eliminar el último elemento de un bloque este queda vacío y el bloque se libera, la operación sigue siendo constante, porque:
+   - Se elimina un bloque completo de tamaño fijo.
+   - No se ve afectado el resto del deque.
+   - El número de operaciones no depende de n, sino del tamaño de bloque (constante).
+
+##### _Recorrido completo_
+- **Mejor caso:** O(n) Elementos en pocos bloques (menos saltos).  
+- **Caso promedio:** O(n) Distribución normal de bloques.  
+- **Peor caso:** O(n) Los elementos quedaron muy fragmentados en bloques.
+ 
+*(La fragmentación en bloques no cambia la complejidad.)*
 
 #### Ordenamiento (`std::sort` – Introsort)
 - Basado en **Quicksort**, con respaldo de **Heapsort** y optimización final con **Insertionsort**.
@@ -107,8 +141,8 @@ Después de cargar las ventas del día regresa al menú principal.
 | **Insertionsort** | O(n)       | O(n²)         | O(n²)      |
 
 ###### Complejidad final:
-- **Mejor caso:** O(n log n) (cuando Quicksort divide bien los datos)  
-- **Caso promedio:** O(n log n)  
+- **Mejor caso:** O(n log n) cuando Quicksort divide bien los datos.  
+- **Caso promedio:** O(n log n).  
 - **Peor caso:** O(n^2) en el caso de que el arreglo sea muy pequeño y no esté ordenado.  
 
 #### Búsquedas
