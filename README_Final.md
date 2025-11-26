@@ -125,9 +125,12 @@ La eliminación en los extremos de un deque siempre toma tiempo constante porque
    - El número de operaciones no depende de n, sino del tamaño de bloque (constante).
 
 ##### _Recorrido completo_
-- **Mejor caso:** O(n) Elementos en pocos bloques (menos saltos).  
-- **Caso promedio:** O(n) Distribución normal de bloques.  
-- **Peor caso:** O(n) Los elementos quedaron muy fragmentados en bloques.
+- **Mejor caso:** O(n).  
+  El recorrido pasa por los elementos distribuidos en pocos bloques, lo que implica menos saltos entre bloques, pero no reduce la complejidad total. 
+- **Caso promedio:** O(n).  
+  Los elementos están distribuidos normalmente en varios bloques. Aun así, se recorren todos los elementos una sola vez. 
+- **Peor caso:** O(n).  
+  Los elementos están muy fragmentados entre muchos bloques. Hay más cambios de bloque, pero la cantidad total de elementos que se recorren sigue siendo n.
  
 *(La fragmentación en bloques no cambia la complejidad.)*
 
@@ -225,8 +228,21 @@ En comparación con otros algoritmos de ordenamiento, considero que es la mejor 
 
 ### Implementa mecanismos para consultar información de las estructuras
 
-El programa incluye un menú que permite registrar, ordenar o buscar ventas según diferentes criterios.  
-Cada función fue diseñada de forma modular para poder acceder a los datos de manera clara y rápida.
+Para consultar información dentro de la estructura de datos utilizada (`std::deque`), el programa emplea directamente los métodos y operaciones que provee la estructura:
+
+- **Acceso por índice (`ventas[i]`)**  
+  Utilizado en la búsqueda binaria y en la impresión de resultados. Permite consultar un elemento específico sin recorrer toda la estructura.
+
+- **Iteradores (`ventas.begin()`, `ventas.end()`)**  
+  Utilizados para recorrer todas las ventas al imprimir, ordenar o buscar coincidencias.
+
+- **Método `size()`**  
+  Permite consultar cuántos elementos contiene el deque para validar posiciones, rangos y condiciones de búsqueda.
+
+- **Recorrido secuencial**  
+  Se realiza mediante `for` o `for (auto &v : ventas)`, usando la capacidad del deque para devolver elementos en orden lógico.
+
+Estos mecanismos permiten obtener información de manera eficiente y soportan las funcionalidades del programa como mostrar ventas, ordenarlas y buscarlas.
 
 ### Implementa mecanismos de lectura de archivos
 
