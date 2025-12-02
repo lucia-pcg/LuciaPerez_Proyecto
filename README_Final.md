@@ -96,11 +96,11 @@ Después de cargar las ventas del día regresa al menú principal.
 
 ##### _Acceso por índice_
 - **Mejor caso:** O(1).  
-  El elemento se encuentra rápidamente porque el cálculo de su ubicación de acuerdo al índice es inmediato.
+  El elemento se encuentra rápidamente porque el cálculo de su ubicación de acuerdo al índice es inmediato y está al inicio del recorrido.
 - **Caso promedio:** O(n).  
-  `std::deque` divide los datos en varios bloques y puede requerir desplazarse entre múltiples bloques contiguo buscando el índice.)
+  `std::deque` divide los datos en varios bloques y puede requerir desplazarse entre múltiples bloques contiguos buscando el índice.
 - **Peor caso:** O(n).  
-  Aunque el elemento esté en un bloque distinto, el acceso sigue siendo constante. (si el elemento está al inicio o final y requiere recorrer todo el mapa de bloques)
+  Aunque el elemento esté en un bloque distinto, el acceso sigue siendo constante. (Si el elemento está al final y requiere recorrer todo el mapa de bloques)
   
 *En el programa, este tipo de acceso ocurre en la búsqueda binaria (`ventas[mid]`) en las líneas 145 y 147 del header y cuando se imprime la venta encontrada (`ventas[indice]`) en la línea 74 del main.*
 
