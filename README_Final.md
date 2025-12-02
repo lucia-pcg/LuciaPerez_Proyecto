@@ -99,9 +99,9 @@ Después de cargar las ventas del día regresa al menú principal.
   El elemento se encuentra rápidamente porque el cálculo de su ubicación de acuerdo al índice es inmediato y está al inicio del recorrido.
 - **Caso promedio:** O(n).  
   `std::deque` divide los datos en varios bloques y puede requerir desplazarse entre múltiples bloques contiguos buscando el índice.
-- **Peor caso:** O(n).  
-  Aunque el elemento esté en un bloque distinto, el acceso sigue siendo constante. (Si el elemento está al final y requiere recorrer todo el mapa de bloques)
-  
+- **Peor caso:** O(1).  
+  Ya que el dequeue se implementa sobre una lista, por lo que no requiere duplicar el almacenamiento, simplemente crear un nuevo nodo y apuntar hacia él.
+  	
 *En el programa, este tipo de acceso ocurre en la búsqueda binaria (`ventas[mid]`) en las líneas 145 y 147 del header y cuando se imprime la venta encontrada (`ventas[indice]`) en la línea 74 del main.*
 
 ##### _Inserciones (push_back)_
@@ -244,14 +244,6 @@ Para consultar información dentro de la estructura de datos utilizada (`std::de
 
 - **Recorrido secuencial**  
   Se realiza mediante `for` o `for (auto &v : ventas)`, usando la capacidad del deque para devolver elementos en orden lógico.
-
-- **Inserciones (`push_back()`)**
-   - Cargar archivo → `ventas.h` línea **49**  
-   - Cierre de lote → `ventas.h` línea **104**  
-   - Registrar venta del día → `main.cpp` línea **48**
-
-- **Eliminación `clear()`**  
-  Vaciar ventas del día después del cierre de lote → `ventas.h` línea **106**
 
 Estos mecanismos permiten obtener información de manera eficiente y soportan las funcionalidades del programa como mostrar ventas, ordenarlas y buscarlas.
 
