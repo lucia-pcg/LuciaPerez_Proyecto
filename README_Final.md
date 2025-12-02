@@ -1,7 +1,7 @@
 # Sistema de Gestión de Ventas
 
 **Lucía Pérez Casas Gutiérrez – A01713181**  
-**Fecha:** 17/11/2025  
+**Fecha:** 01/12/2025  
 
 Este proyecto permite almacenar, ordenar y acceder a datos de ventas de una tienda.  
 Cada venta incluye un número de nota, una fecha y una cantidad.  
@@ -97,10 +97,10 @@ Después de cargar las ventas del día regresa al menú principal.
 ##### _Acceso por índice_
 - **Mejor caso:** O(1).  
   El elemento se encuentra rápidamente porque el cálculo de su ubicación de acuerdo al índice es inmediato.
-- **Caso promedio:** O(1).  
-  `std::deque` divide los datos en varios bloques y puede determinar de manera inmediata en qué bloque está cualquier índice, sin recorrer elementos.
-- **Peor caso:** O(1).  
-  Aunque el elemento esté en un bloque distinto, el acceso sigue siendo constante porque solo se calcula qué bloque contiene la posición solicitada y cuál es la posición exacta dentro de ese bloque.
+- **Caso promedio:** O(n).  
+  `std::deque` divide los datos en varios bloques y puede requerir desplazarse entre múltiples bloques contiguo buscando el índice.)
+- **Peor caso:** O(n).  
+  Aunque el elemento esté en un bloque distinto, el acceso sigue siendo constante. (si el elemento está al inicio o final y requiere recorrer todo el mapa de bloques)
   
 *En el programa, este tipo de acceso ocurre en la búsqueda binaria (`ventas[mid]`) en las líneas 145 y 147 del header y cuando se imprime la venta encontrada (`ventas[indice]`) en la línea 74 del main.*
 
